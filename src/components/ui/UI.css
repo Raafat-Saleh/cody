@@ -1,0 +1,30 @@
+/** @format */
+
+.error_ok_position {
+  z-index: 3;
+  position: absolute;
+  right: 2.2rem;
+  top: 0.8rem;
+}
+.inputBorderColorError {
+  border-color: #a94442;
+}
+.inputBorderColorError:focus {
+  border-color: #a94442;
+  box-shadow: 1px 1px 7px #a94442;
+}
+.inputBorderColorOk {
+  border-color: #3c763d;
+}
+.inputBorderColorOk:focus {
+  border-color: #3c763d;
+  box-shadow: 1px 1px 7px #3c763d;
+}
+.ColorOk {
+  color: #3c763d;
+  border-color: #3c763d;
+}
+.ColorError {
+  color: #a94442;
+  border-color: #a94442;
+}

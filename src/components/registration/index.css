@@ -1,0 +1,17 @@
+/** @format */
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.backgroundcolor {
+  background-image: linear-gradient(-20deg, #ff2846 0%, #6944ff 100%);
+}
+.form {
+  background: #fff;
+  box-shadow: 0px 8px 60px -10px rgba(13, 28, 39, 0.6);
+  width: 100%;
+  margin: 3rem auto;
+  border-radius: 12px;
+}
