@@ -27,3 +27,5 @@ firebaserc
 /firebase.json
 /.firebase
 /firebase-debug.log
+
+/README.md
