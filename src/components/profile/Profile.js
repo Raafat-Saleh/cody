@@ -6,74 +6,105 @@ import QRCode from "qrcode";
 
 import { Context } from "../../context/Context";
 import Loading from "../loading/Loading";
+
+import { uid } from "uid";
+import { getDatabase, ref, set, get, child } from "firebase/database";
+
 export default function Profile() {
   const context = useContext(Context);
   const [show, setshow] = useState(true);
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const [looding, setlooding] = useState(false);
+
   const [QrCode, setQrCode] = useState("");
   const [data_id, setdata_id] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
 
-  var name = context.user.firstName;
-  var phone = context.user.phoneNumber;
-  var address = context.user.address;
-  var gender = context.user.gender;
-  //
-  var phoneNumberWhatsApp = context.user.phoneNumberWhatsApp;
-  var facebook = context.user.facebook;
-  var instagram = context.user.instagram;
-  var twitter = context.user.twitter;
-  var phoneNumberEmergency1 = context.user.phoneNumberEmergency1;
-  var bloodType = context.user.bloodType;
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [gender, setGender] = useState("");
+  const [phoneNumberWhatsApp, setWhatsApp] = useState("");
+  const [facebook, setFacebook] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [phoneNumberEmergency1, setEmergency] = useState("");
+  const [bloodType, setBlood] = useState("");
+
   useEffect(() => {
     if (!context.user.firstName) {
       setloading(true);
       setshow(false);
-      fetch(`https://rafat-qr-users.herokuapp.com/users/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          data.firstName ? setloading(false) : setloading(true);
-          context.setUser(data);
-          name = context.user.firstName;
-          phone = context.user.phoneNumber;
-          address = context.user.address;
-          gender = context.user.gender;
-          phoneNumberWhatsApp = context.user.phoneNumberWhatsApp;
-          facebook = context.user.facebook;
-          instagram = context.user.instagram;
-          twitter = context.user.twitter;
-          phoneNumberEmergency1 = context.user.phoneNumberEmergency1;
-          bloodType = context.user.bloodType;
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `users/${id}`))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            setName(snapshot.val().name);
+            setAddress(snapshot.val().address);
+            setPhone(snapshot.val().phone);
+            setGender(snapshot.val().gender);
+            setWhatsApp(snapshot.val().phoneNumberWhatsApp);
+            setFacebook(snapshot.val().facebook);
+            setInstagram(snapshot.val().instagram);
+            setTwitter(snapshot.val().twitter);
+            setEmergency(snapshot.val().phoneNumberEmergency1);
+            setBlood(snapshot.val().bloodType);
+            setloading(false);
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
         });
+    } else {
+      setName(context.user.firstName);
+      setPhone(context.user.phoneNumber);
+      setAddress(context.user.address);
+      setGender(context.user.gender);
+      setWhatsApp(context.user.phoneNumberWhatsApp);
+      setFacebook(context.user.facebook);
+      setInstagram(context.user.instagram);
+      setTwitter(context.user.twitter);
+      setEmergency(context.user.phoneNumberEmergency1);
+      setBlood(context.user.bloodType);
+      setloading(false);
     }
-  }, []);
+  }, [bloodType]);
 
+  const userId = uid(25);
   function MakeQR() {
     setlooding(true);
-    fetch("https://rafat-qr-users.herokuapp.com/users", {
-      method: "POST",
-      body: JSON.stringify(context.user),
-      headers: { "Content-type": "application/json " },
+    const db = getDatabase();
+    const reference = ref(db, "users/" + userId);
+    set(reference, {
+      name: name,
+      address: address,
+      phone: phone,
+      gender: gender,
+      phoneNumberWhatsApp: phoneNumberWhatsApp,
+      facebook: facebook,
+      instagram: instagram,
+      twitter: twitter,
+      bloodType: bloodType,
+      phoneNumberEmergency1: phoneNumberEmergency1,
+    });
+    setlooding(false);
+    setdata_id(userId);
+
+    //make QR
+    QRCode.toDataURL(`https://cody-net.firebaseapp.com/users/${userId}`, {
+      color: {
+        dark: "#00F", // dots
+        light: "#FFF", // background
+      },
+      // scale: 8,
     })
-      .then((response) => response.json())
-      .then((data) => {
-        setlooding(false);
-        setdata_id(data._id);
-        //make QR
-        QRCode.toDataURL(`https://cody-net.firebaseapp.com/users/${data._id}`, {
-          color: {
-            dark: "#00F", // dots
-            light: "#FFF", // background
-          },
-          // scale: 8,
-        })
-          .then((url) => {
-            setQrCode(url);
-          })
-          .catch((err) => {});
-      });
+      .then((url) => {
+        setQrCode(url);
+      })
+      .catch((err) => {});
   }
 
   return (

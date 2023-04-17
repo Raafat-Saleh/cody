@@ -46,7 +46,7 @@ export default function Registration() {
           onSubmit={(values) => {
             // PASSWORD
             context.setUser(values);
-            navigate(`/users/${1}`);
+            navigate(`/users/${"cc6fffdd05fa87e37a3c2342"}`);
           }}
         >
           {({ errors, values }) => (
