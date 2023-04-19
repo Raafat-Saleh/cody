@@ -42,7 +42,7 @@ export default function UI({
                   : "inputBorderColorOk"
                 : ""
             }`}
-            type={type}
+            type={type} 
             accept={accept}
           />
         </div>
