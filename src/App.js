@@ -8,7 +8,7 @@ import Profile from "./components/profile/Profile";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter> 
         <Routes>
           <Route path="/" element={<Registration />} />
           <Route path="users/:id" element={<Profile />} />
