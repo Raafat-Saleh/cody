@@ -8,7 +8,7 @@ import "../node_modules/@fortawesome/fontawesome-free/js/all";
 import "./index.css";
 import App from "./App";
 import { ContextProvider } from "./context/Context";
-ReactDOM.render(
+ReactDOM.render( 
   <React.StrictMode>
     <ContextProvider>
       <App />
