@@ -16,7 +16,7 @@ export default function NotFound() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <g id="OBJECTS">
-                <g id="Group">
+                <g id="Group"> 
                   <path
                     id="Vector"
                     d="M101.3 255.2C101.3 255.2 111.1 272.6 181.8 280.5C252.5 288.4 288.2 314.9 333.1 322.8C378 330.7 433.6 278.5 481.8 286.5C530 294.4 588.2 264.2 592.8 255.2H101.3Z"
