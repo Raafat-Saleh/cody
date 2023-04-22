@@ -8,7 +8,7 @@ export function ContextProvider(props) {
   const [user, setUser] = useState({});
   return (
     <Context.Provider value={{ user, setUser }}>
-      {props.children} 
+      {props.children}  
     </Context.Provider>
   );
 }
