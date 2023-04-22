@@ -9,4 +9,4 @@ export default function Loading() {
       <div className={styles.boxLoading}></div>  
     </div>
   );
-}
+} 
