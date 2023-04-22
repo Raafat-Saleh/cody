@@ -44,7 +44,7 @@
   50% {
     transform: translateY(18px) scale(1, 0.9) rotate(45deg);
     border-bottom-right-radius: 40px;
-  }
+  } 
   75% {
     transform: translateY(9px) rotate(67.5deg);
   }
